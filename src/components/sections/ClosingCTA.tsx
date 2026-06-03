@@ -1,33 +1,23 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/motion/FadeIn";
 
 export function ClosingCTA() {
   return (
-    <Section bg="dark">
-      <Container>
-        <FadeIn>
-          <div className="text-center">
-            <h2 className="text-headline-lg font-headline mb-8">
-              Ready to clear the deck?
-            </h2>
-            <a
-              href={siteConfig.phoneHref}
-              className="block text-headline-md font-headline text-accent hover:underline mb-8"
-            >
-              {siteConfig.phone}
-            </a>
-            <Link
-              href="/contact"
-              className="inline-block bg-accent text-white px-10 py-4 text-label-lg hover:bg-accent/90 transition-colors"
-            >
-              Schedule a haul
-            </Link>
-          </div>
-        </FadeIn>
-      </Container>
-    </Section>
+    <section className="bg-primary py-24 border-t-2 border-on-surface">
+      <div className="px-16 text-center flex flex-col items-center">
+        <h2 className="font-headline text-4xl md:text-6xl font-black text-on-primary uppercase mb-6">
+          Ready to clear the deck?
+        </h2>
+        <p className="font-headline text-3xl text-on-primary mb-12">
+          {siteConfig.phone}
+        </p>
+        <Link
+          href="/contact"
+          className="bg-[#1A1A1A] text-[#CC5500] px-16 py-8 text-2xl font-black uppercase border-2 border-on-surface hover:bg-[#CC5500] hover:text-[#1A1A1A] transition-colors"
+        >
+          Schedule a haul
+        </Link>
+      </div>
+    </section>
   );
 }

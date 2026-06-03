@@ -4,7 +4,6 @@ import { useState } from "react";
 import { cn } from "@/lib/cn";
 
 const services = [
-  "Select a service",
   "Residential Hauling",
   "Commercial Cleanout",
   "Appliance Disposal",
@@ -13,7 +12,7 @@ const services = [
 ];
 
 const inputStyles =
-  "w-full py-3 border-b-2 border-near-black bg-transparent focus:border-accent outline-none font-body text-base text-near-black placeholder:text-on-surface-variant transition-colors";
+  "bg-surface-container-low border-2 border-on-surface px-4 py-3 focus:ring-0 focus:border-primary placeholder:text-outline outline-none w-full";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -40,11 +39,11 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="border-2 border-near-black bg-surface p-8 md:p-12">
-        <p className="text-headline-md font-headline text-near-black">
+      <div className="border-2 border-on-surface p-8 md:p-12">
+        <p className="font-headline-md text-headline-md uppercase">
           Request received.
         </p>
-        <p className="mt-4 text-base text-on-surface-variant">
+        <p className="mt-4 font-body-md text-body-md text-on-surface-variant">
           We&apos;ll be in touch within 2 hours during service hours. Expect a
           call or text from our dispatch team.
         </p>
@@ -53,49 +52,43 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Full Name */}
-      <div>
-        <label htmlFor="name" className="text-label-lg block mb-2">
-          Full Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-          className={inputStyles}
-        />
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col">
+          <label className="font-label-md text-label-md uppercase mb-2 tracking-widest text-on-surface-variant">
+            Full Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Your Name"
+            value={form.name}
+            onChange={handleChange}
+            className={inputStyles}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="font-label-md text-label-md uppercase mb-2 tracking-widest text-on-surface-variant">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            required
+            placeholder="(XXX) XXX-XXXX"
+            value={form.phone}
+            onChange={handleChange}
+            className={inputStyles}
+          />
+        </div>
       </div>
-
-      {/* Phone Number */}
-      <div>
-        <label htmlFor="phone" className="text-label-lg block mb-2">
-          Phone Number
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          required
-          placeholder="(XXX) XXX-XXXX"
-          value={form.phone}
-          onChange={handleChange}
-          className={inputStyles}
-        />
-      </div>
-
-      {/* Email Address */}
-      <div>
-        <label htmlFor="email" className="text-label-lg block mb-2">
+      <div className="flex flex-col">
+        <label className="font-label-md text-label-md uppercase mb-2 tracking-widest text-on-surface-variant">
           Email Address
         </label>
         <input
           type="email"
-          id="email"
           name="email"
           required
           placeholder="email@example.com"
@@ -104,52 +97,41 @@ export function ContactForm() {
           className={inputStyles}
         />
       </div>
-
-      {/* Service Required */}
-      <div>
-        <label htmlFor="service" className="text-label-lg block mb-2">
+      <div className="flex flex-col">
+        <label className="font-label-md text-label-md uppercase mb-2 tracking-widest text-on-surface-variant">
           Service Required
         </label>
         <select
-          id="service"
           name="service"
           required
           value={form.service}
           onChange={handleChange}
-          className={cn(
-            inputStyles,
-            "appearance-none cursor-pointer",
-            !form.service && "text-on-surface-variant"
-          )}
+          className={cn(inputStyles, "appearance-none")}
         >
+          <option value="">Select a service</option>
           {services.map((s) => (
-            <option key={s} value={s === "Select a service" ? "" : s}>
+            <option key={s} value={s}>
               {s}
             </option>
           ))}
         </select>
       </div>
-
-      {/* Describe the Load */}
-      <div>
-        <label htmlFor="message" className="text-label-lg block mb-2">
+      <div className="flex flex-col">
+        <label className="font-label-md text-label-md uppercase mb-2 tracking-widest text-on-surface-variant">
           Describe the Load
         </label>
         <textarea
-          id="message"
           name="message"
-          rows={4}
+          rows={5}
           placeholder="List the items you need removed..."
           value={form.message}
           onChange={handleChange}
-          className={cn(inputStyles, "border-2 border-near-black focus:border-accent resize-none p-3")}
+          className={cn(inputStyles, "resize-none")}
         />
       </div>
-
-      {/* Submit */}
       <button
         type="submit"
-        className="w-full bg-accent text-near-black uppercase font-bold py-4 text-base tracking-wider border-2 border-accent hover:bg-near-black hover:text-accent transition-colors"
+        className="w-full md:w-auto bg-primary text-on-primary px-12 py-5 font-headline-sm text-headline-sm uppercase border-2 border-on-surface hover:bg-on-surface hover:text-surface transition-all active:translate-y-1"
       >
         Schedule a haul
       </button>

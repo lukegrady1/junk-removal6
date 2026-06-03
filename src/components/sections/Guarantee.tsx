@@ -1,7 +1,4 @@
 import { ShieldCheck, Gavel, Recycle } from "lucide-react";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/motion/FadeIn";
 
 const guarantees = [
   {
@@ -22,46 +19,39 @@ const badges = [
 
 export function Guarantee() {
   return (
-    <Section>
-      <Container>
-        <FadeIn>
-          <h2 className="text-headline-lg font-headline mb-12">
+    <section className="border-y-2 border-on-surface bg-surface-container-high">
+      <div className="grid grid-cols-1 md:grid-cols-2 divide-y-2 md:divide-y-0 md:divide-x-2 divide-on-surface">
+        <div className="p-16">
+          <h2 className="font-headline text-3xl uppercase mb-6">
             The Ironclad Guarantee
           </h2>
-        </FadeIn>
-
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {guarantees.map((g, i) => (
-            <FadeIn key={g.title} delay={i * 0.1}>
-              <div className="border border-near-black p-8">
-                <h3 className="text-headline-sm font-headline mb-3">
-                  {g.title}
-                </h3>
-                <p className="text-on-surface-variant leading-relaxed">
-                  {g.body}
+          <ul className="space-y-4">
+            {guarantees.map((g) => (
+              <li key={g.title} className="flex items-start gap-3">
+                <span className="w-3 h-3 bg-primary mt-2 shrink-0" />
+                <p className="text-xl">
+                  <strong>{g.title}:</strong> {g.body}
                 </p>
-              </div>
-            </FadeIn>
-          ))}
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <FadeIn delay={0.2}>
-          <div className="flex flex-wrap justify-center gap-12 md:gap-16">
+        <div className="p-16 flex flex-col justify-center">
+          <div className="flex flex-wrap gap-8 opacity-70 grayscale">
             {badges.map((badge) => (
               <div
                 key={badge.label}
                 className="flex flex-col items-center gap-3"
               >
-                <badge.icon
-                  className="w-10 h-10 text-accent"
-                  strokeWidth={1.5}
-                />
-                <span className="text-label-lg">{badge.label}</span>
+                <badge.icon className="w-10 h-10" strokeWidth={1.5} />
+                <span className="uppercase font-bold text-sm tracking-wider">
+                  {badge.label}
+                </span>
               </div>
             ))}
           </div>
-        </FadeIn>
-      </Container>
-    </Section>
+        </div>
+      </div>
+    </section>
   );
 }

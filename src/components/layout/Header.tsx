@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { siteConfig } from "@/lib/site-config";
 
@@ -24,57 +24,61 @@ export function Header() {
     };
   }, [mobileOpen]);
 
+  const navItems = [
+    { label: "Home", href: "/" },
+    ...siteConfig.nav,
+  ];
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-inverse-surface/90 backdrop-blur">
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 lg:px-8">
-        {/* Brand */}
+    <nav className="fixed top-0 left-0 w-full h-[64px] z-50 bg-surface border-b-2 border-on-surface flex justify-between items-center px-4 md:px-16">
+      {/* Left side: logo + desktop nav */}
+      <div className="flex items-center gap-8">
         <Link
           href="/"
-          className="font-headline text-xl font-black tracking-tight text-white"
+          className="font-headline text-headline-sm font-black text-on-surface border-2 border-on-surface p-1 uppercase"
         >
-          HAULED OFF
+          {siteConfig.businessName}
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 lg:flex">
-          {siteConfig.nav.map((item) => (
+        {/* Desktop nav links */}
+        <div className="hidden md:flex gap-6">
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "text-label-lg transition-colors hover:text-accent",
+                "font-body text-sm uppercase tracking-wider transition-colors",
                 pathname === item.href
-                  ? "text-accent"
-                  : "text-inverse-on-surface"
+                  ? "text-primary font-bold border-b-2 border-primary"
+                  : "text-on-surface-variant hover:bg-primary hover:text-on-primary"
               )}
             >
               {item.label}
             </Link>
           ))}
-        </nav>
-
-        {/* Desktop right side */}
-        <div className="hidden items-center gap-5 lg:flex">
-          <a
-            href={siteConfig.phoneHref}
-            className="flex items-center gap-1.5 text-accent text-label-lg"
-          >
-            <Phone className="h-4 w-4" />
-            {siteConfig.phone}
-          </a>
-          <Link
-            href="/contact"
-            className="border border-accent bg-accent px-5 py-2.5 text-sm font-bold uppercase text-near-black transition-colors hover:bg-near-black hover:text-accent"
-          >
-            Schedule a haul
-          </Link>
         </div>
+      </div>
+
+      {/* Right side: phone + CTA + mobile toggle */}
+      <div className="flex items-center gap-6">
+        <a
+          href={siteConfig.phoneHref}
+          className="hidden md:inline text-headline-sm font-black text-on-surface"
+        >
+          {siteConfig.phone}
+        </a>
+        <Link
+          href="/contact"
+          className="hidden md:inline-block bg-accent text-near-black font-bold text-sm uppercase px-6 py-3 border border-on-surface transition-colors hover:bg-near-black hover:text-accent"
+        >
+          Schedule a haul
+        </Link>
 
         {/* Mobile hamburger */}
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex items-center justify-center text-inverse-on-surface lg:hidden"
+          className="flex items-center justify-center text-on-surface md:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? (
@@ -87,18 +91,18 @@ export function Header() {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 top-16 z-40 bg-inverse-surface lg:hidden">
-          <nav className="flex flex-col gap-1 px-6 pt-8">
-            {siteConfig.nav.map((item) => (
+        <div className="fixed inset-0 top-[64px] z-40 bg-surface border-t-2 border-on-surface md:hidden">
+          <div className="flex flex-col gap-1 px-6 pt-8">
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
                 className={cn(
-                  "border-b border-white/10 py-4 text-label-lg transition-colors hover:text-accent",
+                  "border-b border-on-surface/20 py-4 uppercase tracking-wider text-sm transition-colors",
                   pathname === item.href
-                    ? "text-accent"
-                    : "text-inverse-on-surface"
+                    ? "text-primary font-bold"
+                    : "text-on-surface-variant hover:bg-primary hover:text-on-primary"
                 )}
               >
                 {item.label}
@@ -108,22 +112,21 @@ export function Header() {
             <div className="mt-8 flex flex-col gap-4">
               <a
                 href={siteConfig.phoneHref}
-                className="flex items-center gap-2 text-accent text-label-lg"
+                className="text-headline-sm font-black text-on-surface"
               >
-                <Phone className="h-5 w-5" />
                 {siteConfig.phone}
               </a>
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="inline-block border border-accent bg-accent px-5 py-3 text-center text-sm font-bold uppercase text-near-black transition-colors hover:bg-near-black hover:text-accent"
+                className="inline-block bg-accent text-near-black font-bold text-sm uppercase px-6 py-3 border border-on-surface text-center transition-colors hover:bg-near-black hover:text-accent"
               >
                 Schedule a haul
               </Link>
             </div>
-          </nav>
+          </div>
         </div>
       )}
-    </header>
+    </nav>
   );
 }

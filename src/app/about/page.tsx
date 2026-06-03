@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { FadeIn } from "@/components/motion/FadeIn";
+import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   title: "About",
@@ -39,136 +37,139 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <>
-      {/* Hero */}
-      <Section bg="surface" className="pt-32 md:pt-40">
-        <Container>
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-              <div>
-                <p className="text-label-lg text-accent">
-                  The Pioneer Valley Standard
-                </p>
-                <h1 className="mt-4 text-headline-xl-mobile md:text-headline-xl">
-                  More than just a truck. A mission to clear space.
-                </h1>
-              </div>
-              <div className="flex items-end">
-                <p className="text-lg md:text-xl text-on-surface-variant leading-relaxed">
-                  We started with one mission: make junk removal in Springfield
-                  honest, fast, and heavy-duty.
-                </p>
-              </div>
-            </div>
-          </FadeIn>
-        </Container>
-      </Section>
+    <main className="mt-[64px]">
+      {/* Hero Section: Identity */}
+      <section className="py-32 px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+        <div className="lg:col-span-8">
+          <span className="font-label-lg text-primary uppercase tracking-widest block mb-4">
+            The Pioneer Valley Standard
+          </span>
+          <h1 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase">
+            More than just a truck.
+            <br />A mission to clear space.
+          </h1>
+        </div>
+        <div className="lg:col-span-4 border-l-2 border-on-surface pl-8 mb-4">
+          <p className="font-body-lg text-body-lg text-on-surface-variant">
+            We started with one mission: make junk removal in Springfield
+            honest, fast, and heavy-duty.
+          </p>
+        </div>
+      </section>
 
-      {/* Story Block */}
-      <Section bg="default">
-        <Container>
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src="/images/about/team.jpg"
-                  alt={`${siteConfig.businessName} crew`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <h2 className="text-headline-md md:text-headline-lg">
-                  The Springfield Roots
-                </h2>
-                <p className="mt-6 text-lg text-on-surface-variant leading-relaxed">
-                  In 2018, {siteConfig.businessName} began with a single used
-                  flatbed and a simple promise: show up on time and out-work
-                  everyone else. Founded by Springfield native Mike Russo, the
-                  company was born out of a realization that the Pioneer Valley
-                  needed a junk removal service that didn&rsquo;t hide behind
-                  confusing quotes or &ldquo;hidden fees.&rdquo;
-                </p>
-                <p className="mt-4 text-lg text-on-surface-variant leading-relaxed">
-                  Today, we&rsquo;ve grown into a full crew with a fleet of
-                  heavy-duty vehicles, but the grit remains the same. Every load
-                  is a chance to prove we&rsquo;re the hardest working team in
-                  Western Mass.
-                </p>
-              </div>
+      {/* Main Story Block */}
+      <section className="mb-32 px-4 md:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 border-t-2 border-on-surface pt-6">
+          <div className="lg:col-span-4 py-8">
+            <h2 className="font-headline-md text-headline-md uppercase mb-8">
+              The Springfield Roots
+            </h2>
+            <p className="font-body-md text-body-md text-on-surface-variant mb-6">
+              In {siteConfig.founded}, {siteConfig.businessName} began with a
+              single used flatbed and a simple promise: show up on time and
+              out-work everyone else. Founded by Springfield native{" "}
+              {siteConfig.founder}, the company was born out of a realization
+              that the Pioneer Valley needed a junk removal service that
+              didn&apos;t hide behind confusing quotes or &ldquo;hidden
+              fees.&rdquo;
+            </p>
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              Today, we&apos;ve grown into a full crew with a fleet of
+              heavy-duty vehicles, but the grit remains the same. Every load is
+              a chance to prove we&apos;re the hardest working team in Western
+              Mass.
+            </p>
+          </div>
+          <div className="lg:col-span-8">
+            <div className="relative w-full aspect-[16/9] border-2 border-on-surface overflow-hidden group">
+              <Image
+                src="/images/about/team.jpg"
+                alt={`${siteConfig.businessName} crew in Springfield`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                preload
+              />
             </div>
-          </FadeIn>
-        </Container>
-      </Section>
+          </div>
+        </div>
+      </section>
 
       {/* Stats Row */}
-      <Section bg="dark" className="py-16 md:py-20">
-        <Container>
-          <FadeIn>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 md:divide-x md:divide-inverse-on-surface/20 text-center">
-              {stats.map((stat) => (
-                <div key={stat.label} className="px-8">
-                  <p className="text-[56px] md:text-[72px] font-headline font-black leading-none text-accent">
-                    {stat.value}
-                  </p>
-                  <p className="mt-2 text-label-lg text-inverse-on-surface/70">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
+      <section className="bg-on-surface text-surface py-20 px-4 md:px-16 mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          {stats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className={cn(
+                "flex flex-col items-center",
+                index === 1 &&
+                  "border-y-2 md:border-y-0 md:border-x-2 border-surface-variant py-12 md:py-0"
+              )}
+            >
+              <span className="font-headline-xl text-primary-fixed-dim block mb-2">
+                {stat.value}
+              </span>
+              <span className="font-label-lg uppercase tracking-widest text-surface-variant">
+                {stat.label}
+              </span>
             </div>
-          </FadeIn>
-        </Container>
-      </Section>
+          ))}
+        </div>
+      </section>
 
       {/* Values */}
-      <Section bg="surface">
-        <Container>
-          <FadeIn>
-            <h2 className="text-headline-md md:text-headline-lg text-center">
-              Our Hard-Line Values
-            </h2>
-          </FadeIn>
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
-            {values.map((value) => (
-              <FadeIn key={value.number}>
-                <div>
-                  <span className="text-[64px] font-headline font-black leading-none text-accent/20">
-                    {value.number}
-                  </span>
-                  <h3 className="mt-2 text-headline-sm">{value.title}</h3>
-                  <p className="mt-4 text-on-surface-variant leading-relaxed">
-                    {value.description}
-                  </p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* CTA */}
-      <Section bg="dark">
-        <Container>
-          <FadeIn>
-            <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-headline-lg md:text-headline-xl">
-                Ready to clear the clutter?
-              </h2>
-              <p className="mt-6 text-lg text-inverse-on-surface/80">
-                Same-day service available in Springfield, Holyoke, and
-                Northampton. Let the crew handle the heavy lifting.
-              </p>
-              <div className="mt-10">
-                <Button href="/contact" variant="primary" size="lg">
-                  Book Your Haul
-                </Button>
+      <section className="px-4 md:px-16 mb-32">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="font-headline-lg text-headline-lg uppercase">
+            Our Hard-Line Values
+          </h2>
+          <div className="h-[2px] bg-on-surface flex-grow" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {values.map((value) => (
+            <div
+              key={value.number}
+              className="border-2 border-on-surface p-6 flex flex-col justify-between hover:bg-surface-container transition-colors min-h-[300px]"
+            >
+              <div>
+                <span className="font-headline-md text-primary mb-4 block">
+                  {value.number}
+                </span>
+                <h3 className="font-headline-sm uppercase mb-4">
+                  {value.title}
+                </h3>
+                <p className="font-body-md text-on-surface-variant">
+                  {value.description}
+                </p>
               </div>
             </div>
-          </FadeIn>
-        </Container>
-      </Section>
-    </>
+          ))}
+        </div>
+      </section>
+
+      {/* Closing CTA Band */}
+      <section className="px-4 md:px-16 pb-32">
+        <div className="bg-primary text-white p-12 flex flex-col md:flex-row justify-between items-center gap-6 border-2 border-on-surface">
+          <div className="max-w-2xl">
+            <h2 className="font-headline-lg text-headline-lg uppercase mb-4">
+              Ready to clear the clutter?
+            </h2>
+            <p className="font-body-lg text-body-lg opacity-90">
+              Same-day service available in Springfield, Holyoke, and
+              Northampton. Let the crew handle the heavy lifting.
+            </p>
+          </div>
+          <div className="flex-shrink-0">
+            <Link
+              href="/contact"
+              className="bg-on-surface text-primary-fixed-dim px-12 py-6 font-headline-sm uppercase hover:bg-surface hover:text-on-surface transition-all active:translate-y-1 inline-block"
+            >
+              Book Your Haul
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

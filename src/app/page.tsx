@@ -9,9 +9,9 @@ import { Guarantee } from "@/components/sections/Guarantee";
 import { FAQ } from "@/components/sections/FAQ";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <>
+    <div className="mt-[64px]">
       <Hero />
       <TrustStrip />
       <ServicesOverview />
@@ -22,6 +22,6 @@ export default function Home() {
       <Guarantee />
       <FAQ />
       <ClosingCTA />
-    </>
+    </div>
   );
 }

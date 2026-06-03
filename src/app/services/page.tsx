@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/cn";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -58,104 +55,109 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <>
+    <main className="mt-[64px]">
       {/* Page Header */}
-      <Section bg="surface" className="pt-32 md:pt-40">
-        <Container>
-          <FadeIn>
-            <p className="text-label-lg text-accent">
-              Professional Junk Removal
-            </p>
-            <h1 className="mt-4 text-headline-xl-mobile md:text-headline-xl max-w-3xl">
-              Heavy Lifting. No Excuses.
-            </h1>
-            <p className="mt-6 text-lg md:text-xl text-on-surface-variant max-w-2xl">
-              From estate cleanouts to construction debris, we handle the loads
-              nobody else wants. Flat pricing, same-day availability, and a crew
-              that works until the job is done.
-            </p>
-          </FadeIn>
-        </Container>
-      </Section>
+      <header className="px-4 md:px-16 py-16 border-b-2 border-on-surface bg-surface-container-low">
+        <div className="max-w-4xl">
+          <p className="font-label-lg text-label-lg text-primary uppercase mb-4">
+            Professional Junk Removal
+          </p>
+          <h1 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase mb-6">
+            Heavy Lifting.
+            <br />
+            No Excuses.
+          </h1>
+          <p className="font-body-lg text-body-lg max-w-2xl">
+            We provide structured, reliable debris removal services for
+            Springfield and the Pioneer Valley. If it&apos;s in your way, we
+            haul it off. Simple as that.
+          </p>
+        </div>
+      </header>
 
-      {/* Services */}
-      {services.map((service, index) => {
-        const isEven = index % 2 === 0;
-        return (
-          <Section
-            key={service.number}
-            bg={index % 2 === 0 ? "surface" : "default"}
-          >
-            <Container>
-              <FadeIn>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                  {/* Text Column */}
-                  <div className={cn(!isEven && "lg:order-2")}>
-                    <span className="text-[80px] md:text-[120px] font-headline font-black leading-none text-accent/20">
-                      {service.number}
-                    </span>
-                    <h2 className="mt-2 text-headline-md md:text-headline-lg">
-                      {service.title}
-                    </h2>
-                    <p className="mt-4 text-lg text-on-surface-variant leading-relaxed">
-                      {service.description}
-                    </p>
-                    <div className="mt-8">
-                      <Button href="/contact" variant="primary" size="lg">
-                        Schedule a haul
-                      </Button>
+      {/* Services Section */}
+      <section className="flex flex-col">
+        {services.map((service, index) => {
+          const isAlt = index % 2 !== 0;
+          return (
+            <article
+              key={service.number}
+              className={cn(
+                "px-4 md:px-16 py-32 border-b-2 border-on-surface",
+                isAlt && "bg-surface-container"
+              )}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <div className="md:col-span-8">
+                  <div className="aspect-square w-full md:max-w-2xl bg-surface-variant border-2 border-on-surface overflow-hidden mb-8">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 672px"
+                        className="object-cover"
+                        preload
+                      />
                     </div>
                   </div>
-
-                  {/* Image Column */}
-                  <div
-                    className={cn(
-                      "relative aspect-[4/3] w-full",
-                      !isEven && "lg:order-1"
-                    )}
+                  <span className="font-headline-xl text-primary block mb-2">
+                    {service.number}
+                  </span>
+                  <h2 className="font-headline-lg text-headline-md md:text-headline-lg uppercase mb-4">
+                    {service.title}
+                  </h2>
+                  <p className="font-body-lg text-body-lg max-w-xl mb-12">
+                    {service.description}
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="bg-primary text-on-primary px-10 py-6 border-2 border-on-surface font-headline-sm uppercase hover:bg-on-surface hover:text-[#ffae87] active:translate-y-1 transition-all inline-block"
                   >
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                  </div>
+                    Schedule a haul
+                  </Link>
                 </div>
-              </FadeIn>
-            </Container>
-          </Section>
-        );
-      })}
-
-      {/* Closing CTA */}
-      <Section bg="dark">
-        <Container>
-          <FadeIn>
-            <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-headline-lg md:text-headline-xl">
-                Your junk is our mission.
-              </h2>
-              <p className="mt-6 text-lg text-inverse-on-surface/80">
-                Same-day service often available. Upfront pricing with zero
-                hidden fees. Experience the relief of a clear space today.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4 items-center justify-center">
-                <Button href="/contact" variant="primary" size="lg">
-                  Schedule a haul
-                </Button>
-                <a
-                  href={siteConfig.phoneHref}
-                  className="inline-block border-2 border-inverse-on-surface text-inverse-on-surface px-8 py-4 text-label-lg hover:bg-inverse-on-surface/10 transition-colors"
-                >
-                  {siteConfig.phone}
-                </a>
               </div>
+            </article>
+          );
+        })}
+      </section>
+
+      {/* Closing CTA Band */}
+      <section className="bg-on-surface text-surface py-24 px-4 md:px-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+          <div>
+            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase mb-6 text-primary-fixed">
+              Your junk is
+              <br />
+              our mission.
+            </h2>
+            <p className="font-body-lg text-body-lg max-w-md text-surface-variant">
+              Same-day service often available. Upfront pricing with zero hidden
+              fees. Experience the relief of a clear space today.
+            </p>
+          </div>
+          <div className="flex flex-col gap-6 items-start md:items-end">
+            <Link
+              href="/contact"
+              className="w-full md:w-auto bg-primary text-on-primary px-12 py-8 border-2 border-surface font-headline-sm uppercase hover:bg-on-surface hover:text-[#ffae87] active:translate-y-1 transition-all inline-block text-center"
+            >
+              Schedule a haul
+            </Link>
+            <div className="flex flex-col text-right">
+              <a
+                href={siteConfig.phoneHref}
+                className="font-headline-sm text-headline-sm font-black uppercase text-surface"
+              >
+                {siteConfig.phone}
+              </a>
+              <span className="font-label-lg text-label-lg text-surface-variant uppercase">
+                Serving the entire Pioneer Valley
+              </span>
             </div>
-          </FadeIn>
-        </Container>
-      </Section>
-    </>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

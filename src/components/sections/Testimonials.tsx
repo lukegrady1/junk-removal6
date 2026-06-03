@@ -1,7 +1,4 @@
-import { Star } from "lucide-react";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/motion/FadeIn";
+import { Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -18,40 +15,28 @@ const testimonials = [
   },
 ];
 
-function Stars() {
-  return (
-    <div className="flex gap-1 mb-4">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          className="w-5 h-5 fill-accent text-accent"
-        />
-      ))}
-    </div>
-  );
-}
-
 export function Testimonials() {
   return (
-    <Section bg="surface">
-      <Container>
-        <div className="grid md:grid-cols-2 gap-8">
-          {testimonials.map((t, i) => (
-            <FadeIn key={t.name} delay={i * 0.1}>
-              <div className="border border-near-black p-8 md:p-10 h-full flex flex-col">
-                <Stars />
-                <blockquote className="text-lg leading-relaxed flex-1">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <div className="mt-6 pt-6 border-t border-near-black/20">
-                  <p className="font-bold">{t.name}</p>
-                  <p className="text-on-surface-variant text-sm">{t.title}</p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </Container>
-    </Section>
+    <section className="px-16 py-32">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {testimonials.map((t) => (
+          <div
+            key={t.name}
+            className="border-2 border-on-surface p-12 bg-surface"
+          >
+            <Quote className="w-12 h-12 text-primary mb-6" />
+            <p className="text-2xl font-bold mb-8 italic">
+              &ldquo;{t.quote}&rdquo;
+            </p>
+            <div className="border-t-2 border-on-surface pt-6">
+              <p className="uppercase font-bold text-sm tracking-wider">
+                {t.name}
+              </p>
+              <p className="text-on-surface-variant">{t.title}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

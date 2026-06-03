@@ -1,174 +1,153 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { FadeIn } from "@/components/motion/FadeIn";
 import { ContactForm } from "@/components/forms/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
 };
 
-const infoCards = [
-  {
-    label: "Inquiry Line",
-    value: siteConfig.phone,
-    href: siteConfig.phoneHref,
-  },
-  {
-    label: "Dispatch Email",
-    value: siteConfig.email,
-    href: `mailto:${siteConfig.email}`,
-  },
-  {
-    label: "Service Hours",
-    value: (
-      <>
-        Mon&ndash;Fri: 6am&ndash;7pm
-        <br />
-        Saturday: 7am&ndash;4pm
-        <br />
-        Sunday: Closed
-      </>
-    ),
-  },
-  {
-    label: "Headquarters",
-    value: siteConfig.address.full,
-  },
-];
-
 export default function ContactPage() {
   return (
-    <>
-      {/* Header */}
-      <Section bg="surface" className="pt-32 md:pt-40 pb-16 md:pb-20">
-        <Container>
-          <FadeIn>
-            <h1 className="text-headline-xl-mobile md:text-headline-xl text-near-black max-w-3xl">
-              Contact the Yard
-            </h1>
-            <p className="mt-6 text-lg text-on-surface-variant max-w-2xl">
-              Direct service. No-nonsense pricing. Professional junk removal for
-              Springfield and the Pioneer Valley.
-            </p>
-          </FadeIn>
-        </Container>
-      </Section>
+    <main className="mt-[64px]">
+      {/* Header Section */}
+      <div className="pt-16 md:pt-24 pb-8 px-4 md:px-16 border-b-2 border-on-surface">
+        <h1 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase">
+          Contact the Yard
+        </h1>
+        <p className="font-body-lg text-body-lg max-w-2xl mt-4 text-on-surface-variant">
+          Direct service. No-nonsense pricing. Professional junk removal for
+          Springfield and the Pioneer Valley.
+        </p>
+      </div>
 
       {/* Form + Sidebar */}
-      <Section bg="surface" className="pt-0" id="contact-form">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
-            {/* Form — 2 cols */}
-            <FadeIn className="lg:col-span-2">
-              <ContactForm />
-            </FadeIn>
-
-            {/* Sidebar — 1 col */}
-            <FadeIn delay={0.15} className="space-y-0">
-              {infoCards.map((card) => (
-                <div
-                  key={card.label}
-                  className="border-2 border-near-black p-6 -mt-[2px] first:mt-0"
-                >
-                  <p className="text-label-lg mb-2">{card.label}</p>
-                  {card.href ? (
-                    <a
-                      href={card.href}
-                      className="text-base text-near-black hover:text-accent transition-colors font-bold"
-                    >
-                      {card.value}
-                    </a>
-                  ) : (
-                    <p className="text-base text-near-black">{card.value}</p>
-                  )}
-                </div>
-              ))}
-            </FadeIn>
+      <div className="px-4 md:px-16 py-16 md:py-24 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Contact Form (Left Side) */}
+          <div className="lg:col-span-7">
+            <ContactForm />
           </div>
-        </Container>
-      </Section>
 
-      {/* Map Section */}
-      <Section bg="default" className="py-0">
-        <Container className="px-0 md:px-0">
-          <FadeIn>
-            <div className="relative w-full h-[400px] md:h-[500px]">
+          {/* Side Info (Right Side) */}
+          <aside className="lg:col-span-5 space-y-12 lg:pl-12">
+            {/* Info Blocks */}
+            <div className="space-y-8">
+              <div className="border-l-4 border-primary pl-6">
+                <h3 className="font-label-md text-label-md uppercase text-primary tracking-widest mb-1">
+                  Inquiry Line
+                </h3>
+                <a
+                  href={siteConfig.phoneHref}
+                  className="font-headline-md text-headline-md font-black block"
+                >
+                  {siteConfig.phone}
+                </a>
+              </div>
+              <div className="border-l-4 border-on-surface-variant pl-6">
+                <h3 className="font-label-md text-label-md uppercase text-on-surface-variant tracking-widest mb-1">
+                  Dispatch Email
+                </h3>
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="font-body-lg text-body-lg font-bold"
+                >
+                  {siteConfig.email}
+                </a>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
+                <div>
+                  <h3 className="font-label-md text-label-md uppercase text-on-surface-variant tracking-widest mb-2">
+                    Service Hours
+                  </h3>
+                  <ul className="space-y-1 font-body-md text-body-md">
+                    <li className="flex justify-between">
+                      <span>Mon - Fri</span> <span>6am - 7pm</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span>Saturday</span> <span>7am - 4pm</span>
+                    </li>
+                    <li className="flex justify-between text-outline">
+                      <span>Sunday</span> <span>Closed</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-label-md text-label-md uppercase text-on-surface-variant tracking-widest mb-2">
+                    Headquarters
+                  </h3>
+                  <p className="font-body-md text-body-md">
+                    {siteConfig.address.street}
+                    <br />
+                    {siteConfig.address.city}, {siteConfig.address.state}{" "}
+                    {siteConfig.address.zip}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Map Block */}
+            <div className="aspect-square bg-surface-container-highest border-2 border-on-surface relative overflow-hidden">
+              <div className="absolute inset-0 bg-on-surface opacity-10 pointer-events-none z-10" />
               <Image
                 src="/images/contact/map.jpg"
-                alt="Service area map"
+                alt="Service area map of Springfield, MA"
                 fill
-                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover grayscale opacity-80 mix-blend-multiply"
               />
-              <div className="absolute inset-0 bg-near-black/60 flex items-center justify-center">
-                <p className="text-headline-md md:text-headline-lg text-white text-center font-headline">
-                  Service Radius: 30 Miles
-                </p>
+              <div className="absolute bottom-4 left-4 bg-on-surface text-surface px-3 py-1 font-label-md text-label-md uppercase z-20">
+                Service Radius: 30 Miles
               </div>
             </div>
-          </FadeIn>
-        </Container>
-      </Section>
+          </aside>
+        </div>
+      </div>
 
-      {/* Service Area */}
-      <Section bg="surface">
-        <Container>
-          <FadeIn>
-            <h2 className="text-headline-md md:text-headline-lg text-near-black mb-10">
-              Pioneer Valley Service Area
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {siteConfig.serviceAreaCities.map((city) => (
-                <div
-                  key={city}
-                  className="border-2 border-near-black p-4 text-center font-bold text-near-black text-sm uppercase tracking-wider"
-                >
-                  {city}
-                </div>
-              ))}
+      {/* Service Area List */}
+      <section className="px-4 md:px-16 pt-12 pb-16 border-t-2 border-on-surface">
+        <h2 className="font-headline-md text-headline-md uppercase mb-8">
+          Pioneer Valley Service Area
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          {siteConfig.serviceAreaCities.map((city) => (
+            <div key={city} className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-primary flex-shrink-0" />
+              <span className="font-body-md text-body-md">{city}</span>
             </div>
-          </FadeIn>
-        </Container>
-      </Section>
+          ))}
+        </div>
+      </section>
 
       {/* CTA Band */}
-      <Section bg="dark">
-        <Container>
-          <FadeIn>
-            <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-headline-md md:text-headline-lg text-accent mb-6">
-                Tired of looking at it?
-              </h2>
-              <p className="text-lg text-inverse-on-surface mb-10">
-                Most hauls are completed within 24 hours of contact. Let us
-                handle the heavy lifting today.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  href={siteConfig.phoneHref}
-                >
-                  Call {siteConfig.phone}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  href="#contact-form"
-                  className="text-inverse-on-surface border-inverse-on-surface hover:text-accent hover:border-accent"
-                >
-                  Fill the form &uarr;
-                </Button>
-              </div>
-            </div>
-          </FadeIn>
-        </Container>
-      </Section>
-    </>
+      <section className="mx-4 md:mx-16 mb-32 bg-primary text-on-primary border-2 border-on-surface p-12 md:p-24 text-center">
+        <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase mb-6">
+          Tired of looking at it?
+        </h2>
+        <p className="font-body-lg text-body-lg mb-10 max-w-xl mx-auto opacity-90">
+          Most hauls are completed within 24 hours of contact. Let us handle
+          the heavy lifting today.
+        </p>
+        <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+          <a
+            href={siteConfig.phoneHref}
+            className="bg-on-surface text-surface px-8 py-4 font-headline-sm text-headline-sm uppercase border-2 border-on-surface hover:bg-surface hover:text-on-surface transition-all inline-block"
+          >
+            Call {siteConfig.phone}
+          </a>
+          <span className="font-headline-sm text-headline-sm uppercase opacity-50 hidden md:block">
+            OR
+          </span>
+          <Link
+            href="#"
+            onClick={undefined}
+            className="bg-surface text-on-surface px-8 py-4 font-headline-sm text-headline-sm uppercase border-2 border-on-surface hover:bg-on-surface hover:text-surface transition-all inline-block"
+          >
+            Fill the form
+          </Link>
+        </div>
+      </section>
+    </main>
   );
 }

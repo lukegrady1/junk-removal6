@@ -3,31 +3,32 @@ import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-accent bg-near-black text-inverse-on-surface">
+    <footer className="bg-on-surface text-surface border-t-2 border-on-surface">
       {/* Main grid */}
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-10 w-full px-6 py-16 md:px-16 md:py-32">
         {/* Col 1: Brand */}
-        <div>
-          <Link
-            href="/"
-            className="font-headline text-2xl font-black tracking-tight text-white"
-          >
-            HAULED OFF
-          </Link>
-          <p className="mt-4 font-body text-sm leading-relaxed text-inverse-on-surface/70">
+        <div className="md:col-span-1">
+          <div className="font-headline text-5xl font-black text-surface uppercase mb-6 leading-none">
+            HAULED
+            <br />
+            OFF
+          </div>
+          <p className="text-surface-container opacity-80">
             Professional Junk Removal for {siteConfig.serviceArea}. Since{" "}
             {siteConfig.founded}.
           </p>
         </div>
 
-        {/* Col 2: Connect */}
+        {/* Col 2: Contact */}
         <div>
-          <h3 className="mb-4 text-label-lg text-white">Connect</h3>
-          <ul className="flex flex-col gap-3 font-body text-sm">
+          <h5 className="uppercase mb-6 text-[#ffdbcc] font-bold tracking-wider">
+            Contact
+          </h5>
+          <ul className="space-y-3 text-surface-container">
             <li>
               <a
                 href={siteConfig.phoneHref}
-                className="transition-colors hover:text-accent"
+                className="transition-colors hover:text-surface"
               >
                 {siteConfig.phone}
               </a>
@@ -35,36 +36,39 @@ export function Footer() {
             <li>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="transition-colors hover:text-accent"
+                className="transition-colors hover:text-surface"
               >
                 {siteConfig.email}
               </a>
             </li>
-            <li className="text-inverse-on-surface/70">
-              {siteConfig.address.city}, {siteConfig.address.state}
-            </li>
           </ul>
         </div>
 
-        {/* Col 3: Operation */}
+        {/* Col 3: Service Info */}
         <div>
-          <h3 className="mb-4 text-label-lg text-white">Operation</h3>
-          <ul className="flex flex-col gap-3 font-body text-sm text-inverse-on-surface/70">
+          <h5 className="uppercase mb-6 text-[#ffdbcc] font-bold tracking-wider">
+            Service Info
+          </h5>
+          <ul className="space-y-3 text-surface-container">
+            <li>
+              {siteConfig.address.city}, {siteConfig.address.state}
+            </li>
             <li>{siteConfig.hours.short}</li>
-            <li>{siteConfig.serviceArea}</li>
             <li>{siteConfig.insurance}</li>
           </ul>
         </div>
 
         {/* Col 4: Company */}
         <div>
-          <h3 className="mb-4 text-label-lg text-white">Company</h3>
-          <ul className="flex flex-col gap-3 font-body text-sm">
+          <h5 className="uppercase mb-6 text-[#ffdbcc] font-bold tracking-wider">
+            Company
+          </h5>
+          <ul className="space-y-3 text-surface-container">
             {siteConfig.footerCompany.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="transition-colors hover:text-accent"
+                  className="transition-colors hover:text-surface"
                 >
                   {item.label}
                 </Link>
@@ -75,26 +79,11 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-inverse-on-surface/50 sm:flex-row lg:px-8">
-          <p>
-            &copy; {new Date().getFullYear()} HAULED OFF | {siteConfig.license}
-          </p>
-          <div className="flex gap-4">
-            <Link
-              href="/privacy"
-              className="transition-colors hover:text-accent"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-accent"
-            >
-              Terms
-            </Link>
-          </div>
-        </div>
+      <div className="px-6 md:px-16 py-8 border-t border-surface/20 flex flex-col sm:flex-row justify-between items-center gap-3 text-label-md uppercase">
+        <span>
+          &copy; {new Date().getFullYear()} {siteConfig.businessName} |{" "}
+          {siteConfig.license}
+        </span>
       </div>
     </footer>
   );

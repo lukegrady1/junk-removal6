@@ -1,7 +1,3 @@
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/motion/FadeIn";
-
 const steps = [
   {
     num: "01",
@@ -27,32 +23,35 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <Section>
-      <Container>
-        <FadeIn>
-          <h2 className="text-headline-lg font-headline mb-16">
-            The Work Protocol
-          </h2>
-        </FadeIn>
+    <section className="px-16 py-32">
+      <h2 className="font-headline text-5xl mb-16 uppercase">
+        The Work Protocol
+      </h2>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-          {steps.map((step, i) => (
-            <FadeIn key={step.num} delay={i * 0.1}>
-              <div>
-                <span className="text-headline-xl font-headline text-accent block mb-4">
-                  {step.num}
-                </span>
-                <h3 className="text-headline-sm font-headline mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-on-surface-variant leading-relaxed">
-                  {step.body}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </Container>
-    </Section>
+      <div className="flex flex-col">
+        {steps.map((step, i) => (
+          <div
+            key={step.num}
+            className={`grid grid-cols-1 md:grid-cols-4 py-12 items-center ${
+              i === steps.length - 1
+                ? "border-y-2 border-on-surface"
+                : "border-t-2 border-on-surface"
+            }`}
+          >
+            <span className="font-headline text-6xl text-primary md:col-span-1">
+              {step.num}
+            </span>
+            <div className="md:col-span-3">
+              <h3 className="font-headline text-3xl uppercase">
+                {step.title}
+              </h3>
+              <p className="text-xl text-on-surface-variant max-w-2xl">
+                {step.body}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

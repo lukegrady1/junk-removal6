@@ -92,52 +92,58 @@ export function GalleryGrid() {
 
   return (
     <>
-      {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-12">
-        {filters.map((filter) => (
-          <button
-            key={filter.value}
-            onClick={() => setActive(filter.value)}
-            className={cn(
-              "px-5 py-2.5 text-label-lg transition-colors",
-              active === filter.value
-                ? "bg-accent text-near-black"
-                : "border border-near-black text-near-black hover:bg-near-black hover:text-inverse-on-surface"
-            )}
-          >
-            {filter.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Masonry Grid */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-        {filtered.map((item) => {
-          const isCleanout = item.category === "cleanouts";
-          const isTall =
-            item.src.includes("cleanout-1") ||
-            item.src.includes("work-1") ||
-            item.src.includes("cleanout-4") ||
-            item.src.includes("work-6");
-
-          return (
-            <div
-              key={item.src}
+      {/* Sticky Filter Bar */}
+      <div className="sticky top-[64px] bg-surface z-40 border-b-2 border-on-surface overflow-x-auto">
+        <div className="flex px-4 md:px-16 whitespace-nowrap">
+          {filters.map((filter) => (
+            <button
+              key={filter.value}
+              onClick={() => setActive(filter.value)}
               className={cn(
-                "relative w-full overflow-hidden break-inside-avoid",
-                isTall ? "aspect-[3/4]" : isCleanout ? "aspect-[4/3]" : "aspect-square"
+                "px-8 py-4 font-label-lg uppercase tracking-widest border-r-2 border-on-surface transition-colors",
+                active === filter.value
+                  ? "bg-primary text-on-primary"
+                  : "hover:bg-primary-container hover:text-on-primary"
               )}
             >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-          );
-        })}
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="w-full">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-b-2 border-on-surface">
+          {filtered.map((item, index) => {
+            const isLarge = index === 0;
+            return (
+              <div
+                key={item.src}
+                className={cn(
+                  "overflow-hidden border-r-2 border-b-2 border-on-surface group",
+                  isLarge
+                    ? "col-span-2 row-span-2"
+                    : "col-span-1 aspect-square"
+                )}
+              >
+                <div className="relative w-full h-full min-h-[200px]">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    sizes={
+                      isLarge
+                        ? "(max-width: 768px) 100vw, 50vw"
+                        : "(max-width: 768px) 50vw, 25vw"
+                    }
+                    className="object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-400"
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );

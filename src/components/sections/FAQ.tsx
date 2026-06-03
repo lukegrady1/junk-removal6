@@ -1,11 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/motion/FadeIn";
 
 const faqs = [
   {
@@ -38,46 +35,42 @@ export function FAQ() {
   };
 
   return (
-    <Section bg="surface">
-      <Container>
-        <FadeIn>
-          <h2 className="text-headline-lg font-headline mb-12">
-            Frequently Asked Questions
-          </h2>
-        </FadeIn>
+    <section className="px-16 py-32">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="font-headline text-5xl mb-12 uppercase text-center">
+          Frequently Asked Questions
+        </h2>
 
-        <div className="max-w-3xl">
+        <div>
           {faqs.map((faq, i) => (
-            <FadeIn key={i} delay={i * 0.05}>
-              <div className="border border-near-black border-b-0 last:border-b">
-                <button
-                  onClick={() => toggle(i)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-near-black/5 transition-colors"
-                  aria-expanded={openIndex === i}
-                >
-                  <span className="font-bold text-lg pr-4">{faq.q}</span>
-                  <ChevronDown
-                    className={cn(
-                      "w-5 h-5 shrink-0 transition-transform duration-300",
-                      openIndex === i && "rotate-180"
-                    )}
-                  />
-                </button>
-                <div
+            <div key={i} className="border-b-2 border-on-surface">
+              <button
+                onClick={() => toggle(i)}
+                className="w-full flex items-center justify-between py-6 text-left"
+                aria-expanded={openIndex === i}
+              >
+                <span className="font-bold text-lg pr-4">{faq.q}</span>
+                <Plus
                   className={cn(
-                    "overflow-hidden transition-all duration-300",
-                    openIndex === i ? "max-h-96" : "max-h-0"
+                    "w-6 h-6 shrink-0 transition-transform duration-300",
+                    openIndex === i && "rotate-45"
                   )}
-                >
-                  <p className="px-6 pb-6 text-on-surface-variant leading-relaxed">
-                    {faq.a}
-                  </p>
-                </div>
+                />
+              </button>
+              <div
+                className={cn(
+                  "overflow-hidden transition-all duration-300",
+                  openIndex === i ? "max-h-96 pb-6" : "max-h-0"
+                )}
+              >
+                <p className="text-on-surface-variant leading-relaxed">
+                  {faq.a}
+                </p>
               </div>
-            </FadeIn>
+            </div>
           ))}
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }

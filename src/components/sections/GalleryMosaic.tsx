@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FadeIn } from "@/components/motion/FadeIn";
 
 const images = [
   { src: "/images/home/gallery-1.jpg", alt: "Junk removal project 1" },
@@ -11,31 +10,29 @@ const images = [
 
 export function GalleryMosaic() {
   return (
-    <section className="relative">
-      <FadeIn>
-        <div className="grid grid-cols-2 md:grid-cols-4">
-          {images.map((img) => (
-            <div key={img.src} className="relative aspect-square">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(min-width: 768px) 25vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
+    <section className="relative overflow-hidden">
+      <div className="grid grid-cols-2 md:grid-cols-4 aspect-[4/1]">
+        {images.map((img) => (
+          <div key={img.src} className="relative overflow-hidden">
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              sizes="(min-width: 768px) 25vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
 
-        <div className="absolute inset-0 flex items-center justify-center bg-near-black/40">
-          <Link
-            href="/gallery"
-            className="border-2 border-white text-white px-10 py-4 text-label-lg hover:bg-white hover:text-near-black transition-colors"
-          >
-            See the work
-          </Link>
-        </div>
-      </FadeIn>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <Link
+          href="/gallery"
+          className="bg-surface px-10 py-6 border-2 border-on-surface font-headline uppercase pointer-events-auto hover:bg-primary hover:text-on-primary transition-colors"
+        >
+          See the work
+        </Link>
+      </div>
     </section>
   );
 }

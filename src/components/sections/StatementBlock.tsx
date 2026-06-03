@@ -1,17 +1,16 @@
-import { Section } from "@/components/ui/Section";
-import { Container } from "@/components/ui/Container";
-import { FadeIn } from "@/components/motion/FadeIn";
-
 export function StatementBlock() {
   return (
-    <Section bg="surface">
-      <Container>
-        <FadeIn>
-          <p className="text-headline-lg font-headline text-center max-w-3xl mx-auto whitespace-pre-line">
-            {"No hidden fees.\nNo leftover mess.\nNo second trip."}
-          </p>
-        </FadeIn>
-      </Container>
-    </Section>
+    <section className="bg-surface-dim border-y-2 border-on-surface py-24 text-center">
+      <div className="px-16 max-w-5xl mx-auto">
+        <div className="w-24 h-2 bg-primary mx-auto mb-10" />
+        <h2 className="font-headline text-4xl md:text-6xl font-black uppercase leading-none tracking-tighter">
+          No hidden fees.
+          <br />
+          No leftover mess.
+          <br />
+          No second trip.
+        </h2>
+      </div>
+    </section>
   );
 }
