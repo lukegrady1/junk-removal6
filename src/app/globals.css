@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #D6D2C4;
+  --foreground: #1A1A1A;
+  --accent: #CC5500;
+  --primary: #9c3f00;
+  --primary-container: #c45100;
+  --on-primary: #ffffff;
+  --surface: #fef9ea;
+  --surface-dim: #dedacc;
+  --surface-container: #f2eedf;
+  --surface-container-high: #ece8da;
+  --surface-container-highest: #e7e2d4;
+  --on-surface: #1d1c13;
+  --on-surface-variant: #584238;
+  --inverse-surface: #323127;
+  --inverse-on-surface: #f5f1e2;
+  --outline: #8c7166;
+  --outline-variant: #e0c0b2;
+  --stone-gray: #D6D2C4;
+  --near-black: #1A1A1A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary: var(--on-primary);
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-stone-gray: var(--stone-gray);
+  --color-near-black: var(--near-black);
+  --font-headline: var(--font-chivo);
+  --font-body: var(--font-hanken);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+/* Brutalist design: no border radius anywhere */
+* {
+  border-radius: 0 !important;
+}
+
+/* Typography utilities */
+.text-headline-xl {
+  font-family: var(--font-headline);
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+}
+
+.text-headline-xl-mobile {
+  font-family: var(--font-headline);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+}
+
+.text-headline-lg {
+  font-family: var(--font-headline);
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.text-headline-md {
+  font-family: var(--font-headline);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.text-headline-sm {
+  font-family: var(--font-headline);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.text-label-lg {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.text-label-md {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
